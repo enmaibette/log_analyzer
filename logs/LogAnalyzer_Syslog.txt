@@ -1,0 +1,99 @@
+Sep  1 09:10:00 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50000 ssh2
+Sep  1 09:10:01 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50001 ssh2
+Sep  1 09:10:02 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50002 ssh2
+Sep  1 09:10:03 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50003 ssh2
+Sep  1 09:10:04 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50004 ssh2
+Sep  1 09:11:05 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50005 ssh2
+Sep  1 09:11:06 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50006 ssh2
+Sep  1 09:11:07 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50007 ssh2
+Sep  1 09:11:08 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50008 ssh2
+Sep  1 09:11:09 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50009 ssh2
+Sep  1 09:12:10 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50010 ssh2
+Sep  1 09:12:11 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50011 ssh2
+Sep  1 09:12:12 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50012 ssh2
+Sep  1 09:12:13 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50013 ssh2
+Sep  1 09:12:14 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50014 ssh2
+Sep  1 09:13:15 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50015 ssh2
+Sep  1 09:13:16 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50016 ssh2
+Sep  1 09:13:17 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50017 ssh2
+Sep  1 09:13:18 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50018 ssh2
+Sep  1 09:13:19 auth1 sshd[1234]: Failed password for invalid user admin from 203.0.113.50 port 50019 ssh2
+Sep  1 09:14:30 auth1 sshd[1234]: Accepted password for admin from 203.0.113.50 port 50099 ssh2
+Sep  1 09:20:10 auth1 sshd[1234]: Failed password for root from 203.0.113.77 port 51000 ssh2
+Sep  1 09:20:11 auth1 sshd[1234]: Accepted password for root from 203.0.113.77 port 51001 ssh2
+Sep  1 09:20:12 auth1 sshd[1234]: Failed password for root from 203.0.113.77 port 51002 ssh2
+Sep  1 09:20:13 auth1 sshd[1234]: Failed password for root from 203.0.113.77 port 51003 ssh2
+Sep  1 09:20:14 auth1 sshd[1234]: Failed password for root from 203.0.113.77 port 51004 ssh2
+Sep  1 09:20:15 auth1 sshd[1234]: Failed password for root from 203.0.113.77 port 51005 ssh2
+Sep  1 09:21:10 auth1 sshd[1234]: Failed password for root from 203.0.113.77 port 51006 ssh2
+Sep  1 09:21:11 auth1 sshd[1234]: Accepted password for root from 203.0.113.77 port 51007 ssh2
+Sep  1 09:21:12 auth1 sshd[1234]: Failed password for root from 203.0.113.77 port 51008 ssh2
+Sep  1 09:21:13 auth1 sshd[1234]: Failed password for root from 203.0.113.77 port 51009 ssh2
+Sep  1 09:21:14 auth1 sshd[1234]: Failed password for root from 203.0.113.77 port 51010 ssh2
+Sep  1 09:21:15 auth1 sshd[1234]: Failed password for root from 203.0.113.77 port 51011 ssh2
+Sep  1 09:22:45 auth1 sshd[1234]: Accepted password for root from 203.0.113.77 port 51099 ssh2
+Sep  1 09:30:00 web01 nginx[800]: 198.51.100.23 - - "GET / HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+Sep  1 09:30:01 web01 nginx[800]: 198.51.100.23 - - "GET /login HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+Sep  1 09:30:02 web01 nginx[800]: 198.51.100.23 - - "GET /login HTTP/1.1" 403 512 "-" "Mozilla/5.0"
+Sep  1 09:30:03 web01 nginx[800]: 198.51.100.23 - - "GET /admin HTTP/1.1" 403 512 "-" "Mozilla/5.0"
+Sep  1 09:30:04 web01 nginx[800]: 198.51.100.23 - - "GET /admin HTTP/1.1" 500 512 "-" "Mozilla/5.0"
+Sep  1 09:30:05 web01 nginx[800]: 198.51.100.23 - - "GET /index.php HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+Sep  1 09:31:06 web01 nginx[800]: 198.51.100.23 - - "GET /admin HTTP/1.1" 403 512 "-" "Mozilla/5.0"
+Sep  1 09:31:07 web01 nginx[800]: 198.51.100.23 - - "GET /wp-login.php HTTP/1.1" 404 512 "-" "Mozilla/5.0"
+Sep  1 09:31:08 web01 nginx[800]: 198.51.100.23 - - "GET /wp-login.php HTTP/1.1" 404 512 "-" "Mozilla/5.0"
+Sep  1 09:31:09 web01 nginx[800]: 198.51.100.23 - - "GET /home HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+Sep  1 09:31:10 web01 nginx[800]: 198.51.100.23 - - "GET /report HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+Sep  1 09:31:11 web01 nginx[800]: 198.51.100.23 - - "GET /report HTTP/1.1" 404 512 "-" "Mozilla/5.0"
+Sep  1 09:32:12 web01 nginx[800]: 198.51.100.23 - - "GET /secret HTTP/1.1" 404 512 "-" "Mozilla/5.0"
+Sep  1 09:32:13 web01 nginx[800]: 198.51.100.23 - - "GET /secret HTTP/1.1" 404 512 "-" "Mozilla/5.0"
+Sep  1 09:32:14 web01 nginx[800]: 198.51.100.23 - - "GET /logout HTTP/1.1" 200 512 "-" "Mozilla/5.0"
+Sep  1 09:40:10 fw01 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=198.51.100.23 DST=10.0.0.10 PROTO=TCP DPT=22 DENIED
+Sep  1 09:41:10 fw01 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=198.51.100.23 DST=10.0.0.10 PROTO=TCP DPT=22 DENIED
+Sep  1 09:42:10 fw01 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=198.51.100.23 DST=10.0.0.10 PROTO=TCP DPT=22 DENIED
+Sep  1 09:43:10 fw01 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=198.51.100.23 DST=10.0.0.10 PROTO=TCP DPT=22 DENIED
+Sep  1 09:44:10 fw01 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=198.51.100.23 DST=10.0.0.10 PROTO=TCP DPT=22 DENIED
+Sep  1 09:45:20 fw01 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=203.0.113.200 DST=10.0.0.20 PROTO=TCP DPT=3389 DENIED
+Sep  1 09:46:20 fw01 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=203.0.113.200 DST=10.0.0.20 PROTO=TCP DPT=3389 DENIED
+Sep  1 09:47:20 fw01 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=203.0.113.200 DST=10.0.0.20 PROTO=TCP DPT=3389 DENIED
+Sep  1 09:48:20 fw01 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=203.0.113.200 DST=10.0.0.20 PROTO=TCP DPT=3389 DENIED
+Sep  1 09:49:20 fw01 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=203.0.113.200 DST=10.0.0.20 PROTO=TCP DPT=3389 DENIED
+Sep  1 10:20:10 app01 app[123]: ERROR: exception while processing request from 198.51.100.99 path=/api/v1/transfer
+Sep  1 10:20:11 app01 app[123]: ERROR: exception while processing request from 198.51.100.99 path=/api/v1/transfer
+Sep  1 10:20:12 app01 app[123]: ERROR: exception while processing request from 198.51.100.99 path=/api/v1/transfer
+Sep  1 10:20:13 app01 app[123]: ERROR: exception while processing request from 198.51.100.99 path=/api/v1/transfer
+Sep  1 10:20:14 app01 app[123]: ERROR: exception while processing request from 198.51.100.99 path=/api/v1/transfer
+Sep  1 10:25:05 auth2 sshd[1300]: Failed password for invalid user test from 198.51.100.200 port 52000 ssh2
+Sep  1 10:25:06 auth2 sshd[1300]: Failed password for invalid user test from 198.51.100.200 port 52001 ssh2
+Sep  1 10:25:07 auth2 sshd[1300]: Failed password for invalid user test from 198.51.100.200 port 52002 ssh2
+Sep  1 10:25:08 auth2 sshd[1300]: Failed password for invalid user test from 198.51.100.200 port 52003 ssh2
+Sep  1 10:25:09 auth2 sshd[1300]: Failed password for invalid user test from 198.51.100.200 port 52004 ssh2
+Sep  1 10:25:10 auth2 sshd[1300]: Failed password for invalid user test from 198.51.100.200 port 52005 ssh2
+Sep  1 10:25:11 auth2 sshd[1300]: Failed password for invalid user test from 198.51.100.200 port 52006 ssh2
+Sep  1 10:25:12 auth2 sshd[1300]: Failed password for invalid user test from 198.51.100.200 port 52007 ssh2
+Sep  1 10:30:00 web02 nginx[801]: 192.0.2.123 - - "GET / HTTP/1.1" 200 1024 "-" "curl/7.68.0"
+Sep  1 10:30:01 web02 nginx[801]: 192.0.2.123 - - "GET /index.html HTTP/1.1" 200 1024 "-" "curl/7.68.0"
+Sep  1 10:30:02 web02 nginx[801]: 192.0.2.123 - - "GET /secret HTTP/1.1" 404 1024 "-" "curl/7.68.0"
+Sep  1 10:30:03 web02 nginx[801]: 192.0.2.123 - - "GET /login HTTP/1.1" 200 1024 "-" "curl/7.68.0"
+Sep  1 10:30:04 web02 nginx[801]: 192.0.2.123 - - "GET /hidden HTTP/1.1" 404 1024 "-" "curl/7.68.0"
+Sep  1 10:30:05 web02 nginx[801]: 192.0.2.123 - - "GET /debug HTTP/1.1" 404 1024 "-" "curl/7.68.0"
+Sep  1 10:30:06 web02 nginx[801]: 192.0.2.123 - - "GET /home HTTP/1.1" 200 1024 "-" "curl/7.68.0"
+Sep  1 10:30:07 web02 nginx[801]: 192.0.2.123 - - "GET /api HTTP/1.1" 500 1024 "-" "curl/7.68.0"
+Sep  1 10:30:08 web02 nginx[801]: 192.0.2.123 - - "GET /report HTTP/1.1" 200 1024 "-" "curl/7.68.0"
+Sep  1 10:30:09 web02 nginx[801]: 192.0.2.123 - - "GET /settings HTTP/1.1" 200 1024 "-" "curl/7.68.0"
+Sep  1 10:30:10 web02 nginx[801]: 192.0.2.123 - - "GET /admin HTTP/1.1" 404 1024 "-" "curl/7.68.0"
+Sep  1 10:30:11 web02 nginx[801]: 192.0.2.123 - - "GET /admin HTTP/1.1" 403 1024 "-" "curl/7.68.0"
+Sep  1 10:30:12 auth3 sshd[2200]: Failed password for invalid user test from 198.51.100.150 port 55000 ssh2
+Sep  1 10:30:13 auth3 sshd[2200]: Failed password for invalid user test from 198.51.100.150 port 55001 ssh2
+Sep  1 10:30:14 auth3 sshd[2200]: Failed password for invalid user test from 198.51.100.150 port 55002 ssh2
+Sep  1 10:30:15 auth3 sshd[2200]: Failed password for invalid user test from 198.51.100.150 port 55003 ssh2
+Sep  1 10:30:16 auth3 sshd[2200]: Failed password for invalid user test from 198.51.100.150 port 55004 ssh2
+Sep  1 10:30:21 web03 nginx[900]: 198.51.100.150 - - "GET /admin HTTP/1.1" 404 512 "-" "Mozilla/5.0"
+Sep  1 10:30:22 web03 nginx[900]: 198.51.100.150 - - "GET /admin HTTP/1.1" 500 512 "-" "Mozilla/5.0"
+Sep  1 10:30:23 web03 nginx[900]: 198.51.100.150 - - "GET /admin HTTP/1.1" 403 512 "-" "Mozilla/5.0"
+Sep  1 10:30:24 web03 nginx[900]: 198.51.100.150 - - "GET /admin HTTP/1.1" 404 512 "-" "Mozilla/5.0"
+Sep  1 10:30:25 web03 nginx[900]: 198.51.100.150 - - "GET /admin HTTP/1.1" 404 512 "-" "Mozilla/5.0"
+Sep  1 10:30:31 fw03 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=203.0.113.250 DST=10.0.0.30 PROTO=TCP DPT=22 DENIED
+Sep  1 10:30:32 fw03 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=203.0.113.250 DST=10.0.0.30 PROTO=TCP DPT=22 DENIED
+Sep  1 10:30:33 fw03 kernel: IN=eth0 OUT= MAC=aa:bb:cc:dd SRC=203.0.113.250 DST=10.0.0.30 PROTO=TCP DPT=22 DENIED
+Sep  1 10:30:41 app03 app[777]: ERROR: exception while processing request from 198.51.100.150 path=/api/v2/check
+Sep  1 10:30:42 app03 app[777]: ERROR: exception while processing request from 198.51.100.150 path=/api/v2/check

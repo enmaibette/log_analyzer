@@ -15,9 +15,9 @@ class LogAnalyzer:
             applicationName = self.extract_application_name(line)
             ipAddress = self.extract_ip_address(line)
             message = ''
-            log_entry = LogEntry(timestamp, hostname, applicationName, ipAddress, message)
+            failed = self.ip_failed(line)
+            log_entry = LogEntry(timestamp, hostname, applicationName, ipAddress, message, failed)
             self.entries.append(log_entry)
-        pass
 
     def extract_timestamp(self, log_line: str):
         timestamp = re.split(rf'\s({SERVICES_PATTERN})\d+', log_line)[0]
@@ -47,6 +47,14 @@ class LogAnalyzer:
             ip = ip_list[0] if ip_list else ''
         return ip
 
+    def ip_failed(self, log_line):
+        failed_pattern = ['Failed password']
+        for pattern in failed_pattern:
+            if pattern in log_line:
+                return True
+        return False
+
+        pass
     def extract_message(self, log_line):
         pass
 

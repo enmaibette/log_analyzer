@@ -32,6 +32,9 @@ class LogAnalyzer:
         pass
 
     def extract_application_name(self, log_line):
+        app_name = re.search(rf'(\w+)\[\d+\]'l,log_line)
+        return app_name.group() if app_name else ''
+        
         pass
 
     def extract_ip_address(self, log_line):

@@ -12,7 +12,7 @@ class LogAnalyzer:
         for line in file:
             timestamp = self.extract_timestamp(line)
             hostname = self.extract_hostname(line)
-            applicationName = ''
+            applicationName = self.extract_application_name(line)
             ipAddress = self.extract_ip_address(line)
             message = ''
             log_entry = LogEntry(timestamp, hostname, applicationName, ipAddress, message)
@@ -25,17 +25,12 @@ class LogAnalyzer:
 
     def extract_hostname(self, log_line):
         hostname = re.search(rf'({SERVICES_PATTERN})\d+', log_line).group()
-        print(hostname)
         return hostname if hostname else ''
 
-
-        pass
-
     def extract_application_name(self, log_line):
-        app_name = re.search(rf'(\w+)\[\d+\]'l,log_line)
+        # search for first match of the pattern
+        app_name = re.search(rf'(\w+)\[\d+\]\:|([a-zA-Z]+)\:', log_line)
         return app_name.group() if app_name else ''
-        
-        pass
 
     def extract_ip_address(self, log_line):
         ip_list = re.findall(r'\b(?:\d{1,3}\.){3}\d{1,3}\b', log_line)

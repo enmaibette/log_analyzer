@@ -19,7 +19,6 @@ class LogAnalyzer:
             failed = self.ip_failed(line)
             log_entry = LogEntry(timestamp, hostname, applicationName, ipAddress, message, failed)
             self.entries.append(log_entry)
-            print(line)
 
     def extract_timestamp(self, log_line: str):
         timestamp = re.split(rf'\s({SERVICES_PATTERN})\d+', log_line)[0]
@@ -68,6 +67,7 @@ class LogAnalyzer:
         message = re.split(r'(?:\w+)\[\d+\]\:|(?:[a-zA-Z]+)\:', log_line, maxsplit=1)[-1].strip()
         return message
 
+    #redundant -> ip_failed so its already included in LogEntry
     def analyze_logs(self):
         pass
 

@@ -17,7 +17,8 @@ class LogAnalyzer:
             ipAddress = self.extract_ip_address(line)
             message = self.extract_message(line)
             failed = self.ip_failed(line)
-            log_entry = LogEntry(timestamp, hostname, applicationName, ipAddress, message, failed)
+            failedMessage = self.analyze_logs(line)
+            log_entry = LogEntry(timestamp, hostname, applicationName, ipAddress, message, failed, failedMessage)
             self.entries.append(log_entry)
 
     def extract_timestamp(self, log_line: str):
@@ -67,22 +68,35 @@ class LogAnalyzer:
         message = re.split(r'(?:\w+)\[\d+\]\:|(?:[a-zA-Z]+)\:', log_line, maxsplit=1)[-1].strip()
         return message
 
-    #redundant -> ip_failed so its already included in LogEntry
-    def analyze_logs(self):
-        pass
+    def analyze_logs(self, log_line):
+        failed_pattern = ['Failed password', 'DENIED', 'ERROR']
+        status_codes = ['401', '403', '404', '500', '502', '503', '504']
+        http_pattern = re.search(r'(HTTP\/((\d\.\d)|(\d))\")\s\w+', log_line)
+        for pattern in failed_pattern:
+            if pattern in log_line:
+                return pattern
+            if http_pattern != None:
+                http_status = re.split(' ', http_pattern.group())[-1].strip()
+                if http_status in status_codes:
+                    return http_status
+        return None
 
     def find_suspicious_entries(self):
         count_failed_entries = {}
         suspicious_entries = {}
         for entry in self.entries:
-            if count_failed_entries.get(entry.ipAddress) is None:
-                count_failed_entries[entry.ipAddress] = 0
             if entry.failed:
-                count_failed_entries[entry.ipAddress] += 1
+                if count_failed_entries.get(entry.ipAddress) is None:
+                    count_failed_entries[entry.ipAddress] = {}
+                    count_failed_entries[entry.ipAddress]['counter'] = 1
+                    count_failed_entries[entry.ipAddress]['failedMessage'] = set()
+                else:
+                    count_failed_entries[entry.ipAddress]['counter'] += 1
+                count_failed_entries[entry.ipAddress]['failedMessage'].add(entry.failedMessage)
 
-        for (ip, count) in count_failed_entries.items():
-            if count >= self.suspicious_after:
-                suspicious_entries[ip] = count
+        for (ip, val) in count_failed_entries.items():
+            if val['counter'] >= self.suspicious_after:
+                suspicious_entries[ip] = {'counter': val['counter'], 'failedMessage': val['failedMessage']}
 
         print("Suspicious entries:", suspicious_entries)
         return suspicious_entries

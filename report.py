@@ -44,17 +44,9 @@ class Report:
                 "application":stats["application"],
                 "reason":"high failure rate" if failure_rate>0.5 else "Moderate activity"
              }
-            return report
+        return report
             
                 
 
-        #suspicious IPs
-        # their statistics (number of failures / total requests)
-        # a short explanation of why they are suspicious (e.g. more than x
-        # failures)
-        # Other statistics are optional but can improve the grade, f.eg:
-        # Failure per-application
-        # Extra information about the failure
-        # Number of failures by suspicious IP
-        # Etc.
+      
         

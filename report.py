@@ -53,10 +53,8 @@ class Report:
              }
         return report
     def save_report(self,file_patch="save_report.json"):
-        reportlog={
-            "short_report":self.short_report(),
-            "detailed_report":self.detailed_report()
-        }
+        reportlog=self.detailed_report()
+        
         with open(file_patch,"w") as f:
             json.dump(reportlog,f,indent=4)
         print(f"report saved to {file_patch}")

@@ -1,20 +1,20 @@
 class Report:
-    def __init__(self, suspicious_entries):
-        self.suspicious_entries = suspicious_entries
+    def __init__(self,all_entries,suspicious_entries):
+        self.all_entries= all_entries
+        self.suspicious_entries=suspicious_entries
 
     def short_report(self):
-        total_lines=len(self.suspicious_entries)
-        ip_lines = sum(1 for e in self.suspicious_entries if e.ipAddress)
-        failures = sum(1 for e in self.suspicious_entries if e.failed)
-        suspicious_ip=list({e.ipAddress for e in self.suspicious_entries if e.ipAddress})
+        total_lines=len(self.all_entries)
+        ip_set={e.ipAddress for e in self.all_entries if e.ipAddress}
+        suspicious_ip={e.ipAddress for e in self.suspicious_entries if e.ipAddress}
         
         return {
             "total_lines":total_lines,
-            "ip_lines":ip_lines,
+            "unique_ip_count":len(ip_set),
             "suspicious_ip_count":len(suspicious_ip),
-            "suspicious_ip":suspicious_ip,
-            
-        }
+            "suspicious_ip":list(suspicious_ip),
+
+         }
     
                 
 

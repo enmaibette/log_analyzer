@@ -1,11 +1,13 @@
+import json
 class Report:
     def __init__(self,all_entries,suspicious_entries):
-        self.all_entries= all_entries
-        self.suspicious_entries=suspicious_entries
+        self.all_entries= all_entries #it count all the log entries
+        self.suspicious_entries=suspicious_entries 
 
     def short_report(self):
         total_lines=len(self.all_entries)
-        ip_set={e.ipAddress for e in self.all_entries if e.ipAddress}
+        ip_set={e.ipAddress for e in self.all_entries if e.ipAddress} #IPs across all logs
+        ip_set={e.ipAddress for e in self.all_entries if e.ipAddress} 
         suspicious_ip={e.ipAddress for e in self.suspicious_entries if e.ipAddress}
         
         return {
@@ -28,10 +30,15 @@ class Report:
             if not ip:
                 continue
             if ip not in ip_stats:
-                ip_stats[ip]={"failure":0,"total":0,"app":{}}
+                ip_stats[ip]={"failure":0,
+                              "total":0,
+                              "app":{},
+                              "failedMessage":set()
+                              }
             ip_stats[ip]["total"]+=1
             if e.failed:
                 ip_stats[ip]["failure"]+=1
+                ip_stats[ip]["failedMessage"].add(e.message)
                 app=e.applicationName
                 ip_stats[ip]["application"][app]=ip_stats[ip]["application"].get(app,0)+1
         report ={}
@@ -45,6 +52,14 @@ class Report:
                 "reason":"high failure rate" if failure_rate>0.5 else "Moderate activity"
              }
         return report
+    def save_report(self,file_patch="save_report.json"):
+        reportlog={
+            "short_report":self.short_report(),
+            "detailed_report":self.detailed_report()
+        }
+        with open(file_patch,"w") as f:
+            json.dump(reportlog,f,indent=4)
+        print(f"report saved to {file_patch}")
             
                 
 

@@ -48,16 +48,28 @@ class Report:
         return detailed_info
 
 
-    def save_report(self,file_path="detailed_report.txt"):
-        reportlog=self.detailed_report()
+    def save_report(self):
+        path_to_save = None
+        while not path_to_save:
+            path_to_save = input("Enter the file path to save the report (default: 'save_report.txt'): ")
+            if not path_to_save:
+                path_to_save = "save_report.txt"
+            try:
+                open(path_to_save, "w").close()
+            except FileNotFoundError:
+                print("Directory does not exist. Please enter a valid file path.")
+                path_to_save = None
+
         
-        with open(file_path,"w") as f:
+        reportlog = self.detailed_report()
+
+        with open(path_to_save,"w") as f:
             for key,value in reportlog.items():
                 f.write(f"IP Address: {key}\n")
                 for k,v in value.items():
                     f.write(f"{k}: {v}\n")
                 f.write("\n")
-        print(f"report saved to {file_path}")
+        print(f"report saved to {path_to_save}")
             
                 
 

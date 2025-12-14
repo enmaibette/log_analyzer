@@ -112,7 +112,18 @@ class LogAnalyzer:
         for entry in self.suspicious_entries:
             print(f'IP Address: {entry.ip_address} | Failed Attempts: {entry.counter} | Failure Messages: {", ".join(entry.messages)}')
 
-    def save_log_as_json(self, file_path='./logs/logs.json'):
+    def save_log_as_json(self):
+        file_path = None
+        while not file_path:
+            file_path = input("Enter the file path to save the log entires as JSON (default: './logs/logs.json'): ")
+            if not file_path:
+                file_path = './logs/logs.json'
+            try: 
+                open(file_path, "w").close()
+            except FileNotFoundError:
+                print("Directory does not exist. Please enter a valid file path.")
+                file_path = None
+
         with open(file_path,"w") as f:
              # indent -> controls pretty printing of the JSON file. Indent=4 means each level is indented by 4 spaces
             json.dump(self.entries, f, default=lambda o: o.__dict__, indent=4)

@@ -1,25 +1,34 @@
+import json
+from suspicious_entry import SuspiciousEntry
 from log_entry import LogEntry
 
 import re
 SERVICES = ['auth', 'web', 'fw', 'app']
 SERVICES_PATTERN = "|".join(SERVICES)
 class LogAnalyzer:
-    def __init__(self, suspicious_after=5):
-        self.entries: list[LogEntry] = []
+    def __init__(self, file_path='./logs/LogAnalyzer_Syslog.txt',suspicious_after=5):
+        self.entries: list[LogEntry] = self.load_logs(file_path) or []
         self.suspicious_after = suspicious_after
+        self.suspicious_entries = self.find_suspicious_entries()
     
     def load_logs(self, file_path):
         file = open(file_path, 'r')
+        log_entries = []
         for line in file:
             timestamp = self.extract_timestamp(line)
             hostname = self.extract_hostname(line)
-            applicationName = self.extract_application_name(line)
-            ipAddress = self.extract_ip_address(line)
+            application_name = self.extract_application_name(line)
+            ip_address = self.extract_ip_address(line)
             message = self.extract_message(line)
             failed = self.ip_failed(line)
-            failedMessage = self.analyze_logs(line)
-            log_entry = LogEntry(timestamp, hostname, applicationName, ipAddress, message, failed, failedMessage)
-            self.entries.append(log_entry)
+            failed_message = self.analyze_logs(line)
+            log_entry = LogEntry(timestamp, hostname, application_name, ip_address, message, failed, failed_message)
+            log_entries.append(log_entry)
+        return log_entries
+
+    def display_all_entries(self):
+        for entry in self.entries:
+            print(f'Timestamp: {entry.timestamp} | IP Address: {entry.ip_address} | Hostname: {entry.hostname} | Application: {entry.application_name} | Message: {entry.message} | Failed: {entry.failed} | Failed Message: {entry.failed_message}')
 
     def extract_timestamp(self, log_line: str):
         timestamp = re.split(rf'\s({SERVICES_PATTERN})\d+', log_line)[0]
@@ -83,23 +92,28 @@ class LogAnalyzer:
 
     def find_suspicious_entries(self):
         count_failed_entries = {}
-        suspicious_entries = {}
+        suspicious_entries = []
         for entry in self.entries:
+            if count_failed_entries.get(entry.ip_address) is None:
+                    count_failed_entries[entry.ip_address] = SuspiciousEntry(entry.ip_address, entry.application_name)
             if entry.failed:
-                if count_failed_entries.get(entry.ipAddress) is None:
-                    count_failed_entries[entry.ipAddress] = {}
-                    count_failed_entries[entry.ipAddress]['counter'] = 1
-                    count_failed_entries[entry.ipAddress]['failedMessage'] = set()
-                else:
-                    count_failed_entries[entry.ipAddress]['counter'] += 1
-                count_failed_entries[entry.ipAddress]['failedMessage'].add(entry.failedMessage)
+                count_failed_entries[entry.ip_address].increment_counter()
+                count_failed_entries[entry.ip_address].add_message(entry.failed_message)
+                count_failed_entries[entry.ip_address].add_timestamp(entry.timestamp)
 
-        for (ip, val) in count_failed_entries.items():
-            if val['counter'] >= self.suspicious_after:
-                suspicious_entries[ip] = {'counter': val['counter'], 'failedMessage': val['failedMessage']}
+            count_failed_entries[entry.ip_address].increment_total_requests()
 
-        print("Suspicious entries:", suspicious_entries)
+        for (_, val) in count_failed_entries.items():
+            if val.counter >= self.suspicious_after:
+                suspicious_entries.append(val)
         return suspicious_entries
+    
+    def display_suspicious_entries(self):
+        for entry in self.suspicious_entries:
+            print(f'IP Address: {entry.ip_address} | Failed Attempts: {entry.counter} | Failure Messages: {", ".join(entry.messages)}')
 
-    def save_as_json(self, file_path):
-        pass
+    def save_log_as_json(self, file_path='./logs/logs.json'):
+        with open(file_path,"w") as f:
+             # indent -> controls pretty printing of the JSON file. Indent=4 means each level is indented by 4 spaces
+            json.dump(self.entries, f, default=lambda o: o.__dict__, indent=4)
+        print(f"report saved to {file_path}")

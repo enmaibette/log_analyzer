@@ -1,4 +1,3 @@
-import json
 class Report:
     def __init__(self,all_entries,suspicious_entries):
         self.all_entries= all_entries #it count all the log entries
@@ -7,7 +6,6 @@ class Report:
     def short_report(self):
         total_lines=len(self.all_entries)
         ip_set={e.ip_address for e in self.all_entries if e.ip_address} #IPs across all logs
-        ip_set={e.ip_address for e in self.all_entries if e.ip_address} 
         suspicious_ip={e.ip_address for e in self.suspicious_entries if e.ip_address}
         print("Short Summary Report")
         print(f"Total log entries: {total_lines}")
@@ -25,7 +23,6 @@ class Report:
 
     def detailed_report(self):
         print("Detailed Report")
-        report = self.short_report()
         detailed_info = {}
 
         for entry in self.suspicious_entries:
@@ -51,12 +48,16 @@ class Report:
         return detailed_info
 
 
-    def save_report(self,file_patch="detailed_report.json"):
+    def save_report(self,file_path="detailed_report.txt"):
         reportlog=self.detailed_report()
         
-        with open(file_patch,"w") as f:
-            json.dump(reportlog,f,indent=4)
-        print(f"report saved to {file_patch}")
+        with open(file_path,"w") as f:
+            for key,value in reportlog.items():
+                f.write(f"IP Address: {key}\n")
+                for k,v in value.items():
+                    f.write(f"{k}: {v}\n")
+                f.write("\n")
+        print(f"report saved to {file_path}")
             
                 
 

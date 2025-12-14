@@ -51,9 +51,9 @@ while(user_options != '6'):
         case '5':
             report.detailed_report()
             if input("Would you like to save the report? (y/n): ").lower() == 'y':
-                path_to_save = input("Enter the file path to save the report (default: 'save_report.json'): ")
+                path_to_save = input("Enter the file path to save the report (default: 'save_report.txt'): ")
                 if not path_to_save:
-                    path_to_save = "save_report.json"
+                    path_to_save = "save_report.txt"
                 report.save_report(path_to_save)
             else:
                 print("Report not saved.")

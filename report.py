@@ -6,53 +6,52 @@ class Report:
 
     def short_report(self):
         total_lines=len(self.all_entries)
-        ip_set={e.ipAddress for e in self.all_entries if e.ipAddress} #IPs across all logs
-        ip_set={e.ipAddress for e in self.all_entries if e.ipAddress} 
-        suspicious_ip={e.ipAddress for e in self.suspicious_entries if e.ipAddress}
-        
+        ip_set={e.ip_address for e in self.all_entries if e.ip_address} #IPs across all logs
+        ip_set={e.ip_address for e in self.all_entries if e.ip_address} 
+        suspicious_ip={e.ip_address for e in self.suspicious_entries if e.ip_address}
+        print("Short Summary Report")
+        print(f"Total log entries: {total_lines}")
+        print(f"Unique IP addresses: {len(ip_set)}")
+        print(f"Suspicious IP addresses counter: {len(suspicious_ip)}")
+        print(f"Suspicious IPs: {', '.join(suspicious_ip)}")
+
         return {
-            "total_lines":total_lines,
-            "unique_ip_count":len(ip_set),
-            "suspicious_ip_count":len(suspicious_ip),
-            "suspicious_ip":list(suspicious_ip),
-
-         }
-    
-                
-
-
+            "total_log_entries": total_lines,
+            "unique_ip_addresses": len(ip_set),
+            "suspicious_ip_addresses_count": len(suspicious_ip),
+            "suspicious_ips": list(suspicious_ip)
+        }
         
 
     def detailed_report(self):
-        ip_stats={}
-        for e in self.suspicious_entries:
-            ip=e.ipAddress
-            if not ip:
-                continue
-            if ip not in ip_stats:
-                ip_stats[ip]={"failure":0,
-                              "total":0,
-                              "app":{},
-                              "failedMessage":set()
-                              }
-            ip_stats[ip]["total"]+=1
-            if e.failed:
-                ip_stats[ip]["failure"]+=1
-                ip_stats[ip]["failedMessage"].add(e.message)
-                app=e.applicationName
-                ip_stats[ip]["application"][app]=ip_stats[ip]["application"].get(app,0)+1
-        report ={}
-        for ip, stats in ip_stats.items():
-            failure_rate=stats["failure"]/stats["total"] if stats["total"] else 0
-            report[ip]={
-                "failure":stats["failure"],
-                "total_request":stats["total"],
-                "failure_rate":round(failure_rate,2),
-                "application":stats["application"],
-                "reason":"high failure rate" if failure_rate>0.5 else "Moderate activity"
-             }
-        return report
-    def save_report(self,file_patch="save_report.json"):
+        print("Detailed Report")
+        report = self.short_report()
+        detailed_info = {}
+
+        for entry in self.suspicious_entries:
+            ip = entry.ip_address
+            detailed_info[ip] = {
+                    "application": entry.app,
+                    "failure_messages": list(entry.messages),
+                    "timestamps": list(entry.timestamp),
+                    "failed_attempts": entry.counter,
+                    "total_requests": entry.totalRequests,
+                    "failure_rate": round(entry.get_failure_rate(), 2),
+                    "reason": "high failure rate" if entry.get_failure_rate() > 0.5 else "Moderate activity"
+                }
+            print(f"IP Address: {ip}")
+            print(f"Application: {entry.app}")
+            print(f"Failure Messages: {', '.join(entry.messages)}")
+            print(f"Timestamps: {', '.join(entry.timestamp)}")
+            print(f"Failed Attempts: {entry.counter}")
+            print(f"Total Requests: {entry.totalRequests}")
+            print(f'Failure Rate: {round(entry.get_failure_rate(), 2)}')
+            print("Reason: " + ("high failure rate" if entry.get_failure_rate() > 0.5 else "Moderate activity"))
+            print("-" * 40)
+        return detailed_info
+
+
+    def save_report(self,file_patch="detailed_report.json"):
         reportlog=self.detailed_report()
         
         with open(file_patch,"w") as f:

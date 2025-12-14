@@ -5,7 +5,7 @@ suspicious_after = None
 
 while not log_analyzer:
     file_path = input("File path (default is ./logs/LogAnalyzer_Syslog.txt): ")
-    suspicious_after = input("Number of failed attempts to consider an IP suspicious (default is 5): ") if suspicious_after is None else suspicious_after
+    suspicious_after = int(input("Number of failed attempts to consider an IP suspicious (default is 5): ")) if suspicious_after is None else suspicious_after
     if not file_path:
         file_path = './logs/LogAnalyzer_Syslog.txt'
 

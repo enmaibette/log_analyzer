@@ -2,10 +2,16 @@ from log_analyzer import LogAnalyzer
 from report import Report
 log_analyzer = None
 suspicious_after = None
+file_path = None
 
 while not log_analyzer:
-    file_path = input("File path (default is ./logs/LogAnalyzer_Syslog.txt): ")
-    suspicious_after = int(input("Number of failed attempts to consider an IP suspicious (default is 5): ")) if suspicious_after is None else suspicious_after
+    file_path = input("File path (default is ./logs/LogAnalyzer_Syslog.txt): ") if file_path is None else file_path
+    try: 
+        suspicious_after = int(input("Number of failed attempts to consider an IP suspicious (default is 5): ")) if suspicious_after is None else suspicious_after
+    except ValueError:
+        print("Please enter a valid integer for suspicious attempts.")
+        continue
+
     if not file_path:
         file_path = './logs/LogAnalyzer_Syslog.txt'
 
@@ -15,6 +21,7 @@ while not log_analyzer:
         log_analyzer = LogAnalyzer(file_path=file_path, suspicious_after=int(suspicious_after))
     except FileNotFoundError:
         print(f"Error: The file at {file_path} was not found.")
+        file_path = None
 
 report = Report(log_analyzer.entries,  log_analyzer.suspicious_entries)
 

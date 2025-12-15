@@ -3,7 +3,7 @@ class SuspiciousEntry:
         self.ip_address = ip_address
         self.app = app
         self.counter = 0
-        self.totalRequests = 0
+        self.total_requests = 0
         self.messages = set()
         self.timestamp = set()
 
@@ -11,10 +11,10 @@ class SuspiciousEntry:
         self.counter += 1
 
     def increment_total_requests(self):
-        self.totalRequests += 1
+        self.total_requests += 1
     
     def get_failure_rate(self):
-        return self.counter / self.totalRequests if self.totalRequests else 0
+        return self.counter / self.total_requests if self.total_requests else 0
     
     def add_message(self, message):
         self.messages.add(message)

@@ -32,7 +32,7 @@ class Report:
                     "failure_messages": list(entry.messages),
                     "timestamps": list(entry.timestamp),
                     "failed_attempts": entry.counter,
-                    "total_requests": entry.totalRequests,
+                    "total_requests": entry.total_requests,
                     "failure_rate": round(entry.get_failure_rate(), 2),
                     "reason": "high failure rate" if entry.get_failure_rate() > 0.5 else "Moderate activity"
                 }
@@ -41,7 +41,7 @@ class Report:
             print(f"Failure Messages: {', '.join(entry.messages)}")
             print(f"Timestamps: {', '.join(entry.timestamp)}")
             print(f"Failed Attempts: {entry.counter}")
-            print(f"Total Requests: {entry.totalRequests}")
+            print(f"Total Requests: {entry.total_requests}")
             print(f'Failure Rate: {round(entry.get_failure_rate(), 2)}')
             print("Reason: " + ("high failure rate" if entry.get_failure_rate() > 0.5 else "Moderate activity"))
             print("-" * 40)

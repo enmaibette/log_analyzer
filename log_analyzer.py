@@ -44,6 +44,8 @@ class LogAnalyzer:
         return app_name.group() if app_name else ''
 
     def extract_ip_address(self, log_line):
+        # \b -> wourd boundary
+        # (?:...) -> non-capturing group
         ip_list = re.findall(r'\b(?:\d{1,3}\.){3}\d{1,3}\b', log_line)
         ip = ''
         if len(ip_list) > 1:
